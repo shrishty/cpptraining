@@ -6,9 +6,18 @@ class Basic
 {
     public:
 
-        void serviceA()
+        virtual void serviceA()
         {
             cout<<"In basic service"<<endl;
+        }
+        Basic()
+        {
+            cout<<"Basic cTor"<<endl;
+        }
+
+        virtual ~Basic()
+        {
+            cout<<"Basic DTor"<<endl;
         }
 };
 
@@ -19,20 +28,51 @@ class Better: public Basic
         {
             cout<<"In better service"<<endl;
         }
+        Better()
+        {
+            cout<<"Better cTor"<<endl;
+        }
+
+        ~Better()
+        {
+            cout<<"Better DTor"<<endl;
+        }
+
 };
 
-class Best: public Basic
+class Best: public Better
 {
     public:
         void serviceA()
         {
             cout<<"In best service"<<endl;
         }
+
+        Best()
+        {
+            cout<<"Best cTor"<<endl;
+        }
+
+        ~Best()
+        {
+            cout<<"Best DTor"<<endl;
+        }
+
+
 };
 
 void ServiceInterface(Basic *basic)
 {
-    basic->serviceA();
+        basic->serviceA();
+
+    // this method must not be used will need dynamic 
+    // cast
+    // if(typeid(*Basic) == typeid(Basic))
+    //     basic->serviceA();
+    // if(typeid(*Basic) == typeid(Basic))
+    //     basic->serviceA();
+    // if(typeid(*Basic) == typeid(Basic))
+    //     basic->serviceA();
 }
 
 void handlePoly()
@@ -55,6 +95,7 @@ void handlePoly()
             break;
     }
     ServiceInterface(bp);
+    delete bp;
     }
 }
 
